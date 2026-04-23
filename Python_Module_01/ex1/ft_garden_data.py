@@ -1,3 +1,5 @@
+#! python3
+
 class Plant:
     def __init__(self, name: str, height: int, age: int) -> None:
         self.name: str = name
@@ -9,11 +11,14 @@ class Plant:
         print(f"{self.name}: {self.height}cm, {self.age} {day_word} old")
 
 
-print("=== Garden Plant Registry ===")
-plant1 = Plant("Rose", 25, 12)
-plant2 = Plant("Sunflower", 80, 45)
-plant3 = Plant("Cactus", 15, 120)
+if __name__ == "__main__":
+    def ft_garden_data() -> None:
+        print("=== Garden Plant Registry ===")
+        plant1 = Plant("Rose", 25, 12)
+        plant2 = Plant("Sunflower", 80, 45)
+        plant3 = Plant("Cactus", 15, 120)
 
-plant1.show()
-plant2.show()
-plant3.show()
+        plant1.show()
+        plant2.show()
+        plant3.show()
+    ft_garden_data()
