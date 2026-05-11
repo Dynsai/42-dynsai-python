@@ -28,17 +28,26 @@ class Plant:
     def get_age(self) -> int:
         return self._age
     
+    @staticmethod
+    def check_age(age: int) -> bool:
+        return age > 365
+    
+    @classmethod
+    def create_anonymous(cls) -> 'Plant':
+        return cls("Unkown", 0.0, 0)
+    
     def info(self) -> None:
         name = self.get_name()
         height = self.get_height()
         age = self.get_age()
-        print(f"{name} with {height}cm of height and {age} years old")
-        
+        print(f"{name} with {height}cm of height and {age} days old")
+        print(f"Is {age} days older than a year? {Plant.check_age(age)}")
             
 if __name__ == "__main__":
     def ft_garden_analytics() -> None:
-        p1 = Plant("Rose", 12.2, 3)
+        p1 = Plant("Rose", 12.2, 366)
         p1.info()
+        
 
     ft_garden_analytics()
         
