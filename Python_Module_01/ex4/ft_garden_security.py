@@ -28,7 +28,7 @@ class Plant:
     def get_age(self) -> int:
         return self._age
     
-    def info(self) -> None:
+    def show(self) -> None:
         name = self.get_name()
         height = self.get_height()
         age = self.get_age()
@@ -39,8 +39,8 @@ class Plant:
 if __name__ == "__main__":
     def ft_plant_factory() -> None:
         plant = Plant("Rose", 15, 10)
-        plant.info()
+        plant.show()
         plant.set_height(-20)
         plant.set_age(1)
-        plant.info()
+        plant.show()
     ft_plant_factory()

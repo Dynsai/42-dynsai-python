@@ -3,6 +3,7 @@ class Plant:
         self._name: str = name
         self._height: float
         self._age: int
+        self._statistics: Plant.Statistics = Plant.Statistics()
         
         self.set_height(height)
         self.set_age(age)
@@ -26,8 +27,22 @@ class Plant:
         return self._height
     
     def get_age(self) -> int:
-        return self._age
-    
+        return self._age        
+
+    def grow(self) -> None:
+        self.set_height(self.get_height() + 15)
+        self._statistics.set_grow_calls()
+
+    def get_old(self) -> None:
+        self.set_age(self.get_age() + 10)
+        self._statistics.set_age_calls()
+
+    def get_statistics(self) -> "Plant.Statistics":
+        return self._statistics
+
+    def extra_show(self) -> None:
+        pass
+
     @staticmethod
     def check_age(age: int) -> bool:
         return age > 365
@@ -35,19 +50,205 @@ class Plant:
     @classmethod
     def create_anonymous(cls) -> 'Plant':
         return cls("Unkown", 0.0, 0)
-    
-    def info(self) -> None:
+
+    def show(self) -> None:
+        self._statistics.set_show_calls()
         name = self.get_name()
         height = self.get_height()
         age = self.get_age()
-        print(f"{name} with {height}cm of height and {age} days old")
+        day_word = "day" if age == 1 else "days"
+        print(f"{name}: {height}cm, {age} {day_word} old")
         print(f"Is {age} days older than a year? {Plant.check_age(age)}")
-            
+        self.extra_show()
+
+    def show_statistics(self) -> None:
+        self._statistics.display()
+
+    class Statistics:
+        def __init__(self) -> None:
+            self._grow_calls: int = 0
+            self._age_calls: int = 0
+            self._show_calls: int = 0
+        
+        def set_grow_calls(self) -> None:
+            self._grow_calls += 1
+
+        def set_age_calls(self) -> None:
+            self._age_calls += 1
+
+        def set_show_calls(self) -> None:
+            self._show_calls += 1
+
+        def get_grow_calls(self) -> int:
+            return self._grow_calls
+        
+        def get_age_calls(self) -> int:
+            return self._age_calls
+        
+        def get_show_calls(self) -> int:
+            return self._show_calls
+        
+        def display(self) -> None:
+            print("=== Calls")
+            print(f"{self.get_grow_calls()} grow calls.")
+            print(f"{self.get_age_calls()} age calls.")
+            print(f"{self.get_show_calls()} show calls")
+
+
+class Flower(Plant):
+    def __init__(self, name: str, height: float, age: int,
+                 color: str, bloom: bool) -> None:
+        super().__init__(name, height, age)
+        self._color: str = "Blanco"
+        self._bloom: bool = False
+
+        self.set_color(color)
+        self.set_bloom(bloom)
+
+    def set_color(self, new_color: str) -> None:
+        self._color = new_color
+
+    def set_bloom(self, blooming: bool) -> None:
+        self._bloom = blooming
+
+    def get_color(self) -> str:
+        return self._color
+
+    def get_bloom(self) -> bool:
+        return self._bloom
+
+    def extra_show(self) -> None:
+        color = self.get_color()
+        bloom = self.get_bloom()
+        name: str = self.get_name()
+        print(f"Color: {color}")
+        if not bloom:
+            print("Not blooming yet")
+            self.set_bloom(True)
+            print(f"##[Asking the {name} to bloom]")
+            self.show()
+        if bloom:
+            print("Blooming!")
+
+
+class Tree(Plant):
+    def __init__(self, name: str, height: float, age: int,
+                 trunk_diameter: int, shade: bool) -> None:
+        super().__init__(name, height, age)
+        self._trunk_diameter: int = 1
+        self._shade: bool = False
+
+        self.set_trunk_diameter(trunk_diameter)
+        self.set_shade(shade)
+
+    def set_trunk_diameter(self, new_trunk_diameter: int) -> None:
+        self._trunk_diameter = new_trunk_diameter
+
+    def set_shade(self, giving_shade: bool) -> None:
+        if giving_shade is not self._shade:
+            self._shade = not self._shade
+
+    def get_trunk_diameter(self) -> int:
+        return self._trunk_diameter
+
+    def get_shade(self) -> bool:
+        return self._shade
+
+    def extra_show(self) -> None:
+        trunk_diameter = self.get_trunk_diameter()
+        height: float = self.get_height()
+        shade = self.get_shade()
+        name: str = self.get_name()
+        shade_area: float = height * trunk_diameter
+        print(f"Trunk diameter: {trunk_diameter}cm")
+        if not shade:
+            print(f"##[Asking the {name} to produce shade]")
+            self.set_shade(True)
+            print(
+                    f"Tree now produces a shade of {shade_area / 10000}"
+                    f" square m ({height}cm * {trunk_diameter}cm)"
+                )
+        if shade:
+            print(
+                    f"Tree now produces a shade of {shade_area / 10000}"
+                    f" square m ({height}cm * {trunk_diameter}cm)"
+                )
+
+
+class Vegetable(Plant):
+    def __init__(self, name: str, height: float, age: int,
+                 harvest_season: str, nutritional_value: int) -> None:
+        super().__init__(name, height, age)
+        self._harvest_season: str = "October"
+        self._nutritional_value: int = 20
+
+        self.set_harvest_season(harvest_season)
+        self.set_nutritional_value(nutritional_value)
+
+    def set_harvest_season(self, new_harvest_season: str) -> None:
+        self._harvest_season = new_harvest_season
+
+    def set_nutritional_value(self, new_nutritional_value: int) -> None:
+        self._nutritional_value = new_nutritional_value
+
+    def get_harvest_season(self) -> str:
+        return self._harvest_season
+
+    def get_nutritional_value(self) -> int:
+        return self._nutritional_value
+
+    def grow_vegetable(self) -> None:
+        super().grow()
+        super().get_old()
+        self._nutritional_value += 15
+
+    def extra_show(self) -> None:
+        harvest_season = self.get_harvest_season()
+        nutritional_value: int = self.get_nutritional_value()
+        name: str = self.get_name()
+        height: float = self.get_height()
+        age: int = self.get_age()
+        print(f"Harvest season: {harvest_season}")
+        print(f"Nutritional value: {nutritional_value}kcal")
+        print(f"##[Make the {name} grow for 10 days]")
+        self.grow_vegetable()
+        height = self.get_height()
+        age = self.get_age()
+        nutritional_value = self.get_nutritional_value()
+        print(f"{name}: {height}cm, {age} days old")
+        print(f"Harvest season: {harvest_season}")
+        print(f"Nutritional value: {nutritional_value}kcal")
+
 if __name__ == "__main__":
     def ft_garden_analytics() -> None:
-        p1 = Plant("Rose", 12.2, 366)
-        p1.info()
-        
+        print("=== Garden Plant Types ===")
+        print("=== Flower")
+        plant = Flower("Rose", 15, 10, "Red", False)
+        plant.set_height(20)
+        plant.set_age(1)
+        plant.set_color("red")
+        plant.set_bloom(False)
+        plant.show()
+        plant.show_statistics()
+
+        print("=== Tree")
+        plant2 = Tree("Pine", 15, 10, 10, False)
+        plant2.set_height(200)
+        plant2.set_age(15)
+        plant2.set_trunk_diameter(45)
+        plant2.set_shade(False)
+        plant2.show()
+
+        print("=== Vegetable")
+        plant3 = Vegetable("Tomatoe", 15, 10, "april", 0)
+        plant3.set_height(15)
+        plant3.set_age(1)
+        plant3.set_harvest_season("october")
+        plant3.set_nutritional_value(0)
+        plant3.show()
+
+        print("=== Anonymous plant")
+        plant_anon = Plant.create_anonymous()
+        plant_anon.show()
 
     ft_garden_analytics()
-        

@@ -10,7 +10,7 @@ class Plant:
     def get_old(self) -> None:
         self.age += 1
 
-    def info(self) -> None:
+    def show(self) -> None:
         day_word = "day" if self.age == 1 else "days"
         print(f"{self.name}: {self.height}cm, {self.age} {day_word} old")
 
@@ -22,12 +22,12 @@ if __name__ == "__main__":
         i: int = 1
         initial_height: float = plant1.height
         print(f"=== Day {i} ===")
-        plant1.info()
+        plant1.show()
         while i < time_to_pass:
             print(f"=== Day {i} ===")
             plant1.grow()
             plant1.get_old()
-            plant1.info()
+            plant1.show()
             i += 1
         total_grow: float = plant1.height - initial_height
         print(f"Growth this week: {total_grow}cm")

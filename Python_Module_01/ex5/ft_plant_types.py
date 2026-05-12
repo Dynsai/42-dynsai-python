@@ -34,16 +34,16 @@ class Plant:
     def get_old(self) -> None:
         self.set_age(self.get_age() + 10)
 
-    def extra_info(self) -> None:
+    def extra_show(self) -> None:
         pass
 
-    def info(self) -> None:
+    def show(self) -> None:
         name = self.get_name()
         height = self.get_height()
         age = self.get_age()
         day_word = "day" if age == 1 else "days"
         print(f"{name}: {height}cm, {age} {day_word} old")
-        self.extra_info()
+        self.extra_show()
 
 
 class Flower(Plant):
@@ -68,7 +68,7 @@ class Flower(Plant):
     def get_bloom(self) -> bool:
         return self._bloom
 
-    def extra_info(self) -> None:
+    def extra_show(self) -> None:
         color = self.get_color()
         bloom = self.get_bloom()
         name: str = self.get_name()
@@ -77,7 +77,7 @@ class Flower(Plant):
             print("Not blooming yet")
             self.set_bloom(True)
             print(f"##[Asking the {name} to bloom]")
-            self.info()
+            self.show()
         if bloom:
             print("Blooming!")
 
@@ -105,7 +105,7 @@ class Tree(Plant):
     def get_shade(self) -> bool:
         return self._shade
 
-    def extra_info(self) -> None:
+    def extra_show(self) -> None:
         trunk_diameter = self.get_trunk_diameter()
         height: float = self.get_height()
         shade = self.get_shade()
@@ -153,7 +153,7 @@ class Vegetable(Plant):
         super().get_old()
         self._nutritional_value += 15
 
-    def extra_info(self) -> None:
+    def extra_show(self) -> None:
         harvest_season = self.get_harvest_season()
         nutritional_value: int = self.get_nutritional_value()
         name: str = self.get_name()
@@ -180,7 +180,7 @@ if __name__ == "__main__":
         plant.set_age(1)
         plant.set_color("red")
         plant.set_bloom(False)
-        plant.info()
+        plant.show()
 
         print("=== Tree")
         plant2 = Tree("Pine", 15, 10, 10, False)
@@ -188,7 +188,7 @@ if __name__ == "__main__":
         plant2.set_age(15)
         plant2.set_trunk_diameter(45)
         plant2.set_shade(False)
-        plant2.info()
+        plant2.show()
 
         print("=== Vegetable")
         plant3 = Vegetable("Tomatoe", 15, 10, "april", 0)
@@ -196,5 +196,5 @@ if __name__ == "__main__":
         plant3.set_age(1)
         plant3.set_harvest_season("october")
         plant3.set_nutritional_value(0)
-        plant3.info()
+        plant3.show()
     ft_plant_types()

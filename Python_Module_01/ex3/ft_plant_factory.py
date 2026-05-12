@@ -4,7 +4,7 @@ class Plant:
         self.height: float = height
         self.age: int = age
 
-    def info(self) -> None:
+    def show(self) -> None:
         day_word = "day" if self.age == 1 else "days"
         print(f"{self.name}: {self.height}cm, {self.age} {day_word} old")
 
@@ -24,5 +24,5 @@ if __name__ == "__main__":
         for list_data in plant_list:
             plant: Plant = Plant(list_data[0], list_data[1], list_data[2])
             plants.append(plant)
-            plant.info()
+            plant.show()
     ft_plant_factory()
