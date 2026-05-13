@@ -130,15 +130,15 @@ class Flower(Plant):
             self._seeds.set_seeds(True)
             seeds_number = self._seeds.get_seeds()
         print(f"Seeds: {seeds_number}")
-            
+
     class Seed:
         def __init__(self) -> None:
             self._seeds: int = 0
-            
+
         def set_seeds(self, bloom: bool) -> None:
             if bloom:
                 self._seeds = 42
-        
+
         def get_seeds(self) -> int:
             return self._seeds
 
@@ -231,21 +231,20 @@ class Vegetable(Plant):
         super().grow()
         super().get_old()
         self._nutritional_value += 15
-        
+
     def get_statistics(self) -> "Plant.Statistics":
-        return self._statistics   
+        return self._statistics
 
     def extra_show(self) -> None:
         harvest_season = self.get_harvest_season()
         nutritional_value: int = self.get_nutritional_value()
-        name: str = self.get_name()
-        height: float = self.get_height()
-        age: int = self.get_age()
         print(f"Harvest season: {harvest_season}")
         print(f"Nutritional value: {nutritional_value}kcal")
 
+
 def show_statistics_plant(self) -> None:
     self.get_statistics().display()
+
 
 if __name__ == "__main__":
     def ft_garden_analytics() -> None:
