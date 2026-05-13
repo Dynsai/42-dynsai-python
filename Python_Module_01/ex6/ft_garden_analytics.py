@@ -280,6 +280,7 @@ if __name__ == "__main__":
         plant2.show()
         plant2.show_statistics_tree()
         plant2.show()
+        plant2.produce_shade()
         plant2.show_statistics_tree()
 
         print("========= Vegetable")
