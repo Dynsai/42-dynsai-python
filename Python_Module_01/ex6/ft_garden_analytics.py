@@ -58,11 +58,8 @@ class Plant:
         age = self.get_age()
         day_word = "day" if age == 1 else "days"
         print(f"{name}: {height}cm, {age} {day_word} old")
-        print(f"+ Is {age} days older than a year? {Plant.check_age(age)}")
+        print(f"+ Is {age} days older than a year? {Plant.check_age(age)}\n")
         self.extra_show()
-
-    def show_statistics_plant(self) -> None:
-        self._statistics.display()
 
     class Statistics:
         def __init__(self) -> None:
@@ -101,7 +98,7 @@ class Flower(Plant):
         super().__init__(name, height, age)
         self._color: str = "Blanco"
         self._bloom: bool = False
-        self._seeds: Flower._seeds = Flower.Seed()
+        self._seeds: Flower.Seed = Flower.Seed()
 
         self.set_color(color)
         self.set_bloom(bloom)
@@ -144,8 +141,6 @@ class Flower(Plant):
         
         def get_seeds(self) -> int:
             return self._seeds
-        
-        
 
 
 class Tree(Plant):
@@ -192,9 +187,6 @@ class Tree(Plant):
             print(f"{name} now produces a shade of {shade_area / 10000}")
             print("square meters")
 
-    def show_statistics_tree(self) -> None:
-        self._statistics.display()
-
     class Statistics(Plant.Statistics):
         def __init__(self) -> None:
             super().__init__()
@@ -217,6 +209,7 @@ class Vegetable(Plant):
         super().__init__(name, height, age)
         self._harvest_season: str = "October"
         self._nutritional_value: int = 20
+        self._statistics: Vegetable.Statistics = Vegetable.Statistics()
 
         self.set_harvest_season(harvest_season)
         self.set_nutritional_value(nutritional_value)
@@ -234,9 +227,13 @@ class Vegetable(Plant):
         return self._nutritional_value
 
     def grow_vegetable(self) -> None:
+        print(f"##[Make the {self.get_name()} grow for 10 days]")
         super().grow()
         super().get_old()
         self._nutritional_value += 15
+        
+    def get_statistics(self) -> "Plant.Statistics":
+        return self._statistics   
 
     def extra_show(self) -> None:
         harvest_season = self.get_harvest_season()
@@ -246,15 +243,9 @@ class Vegetable(Plant):
         age: int = self.get_age()
         print(f"Harvest season: {harvest_season}")
         print(f"Nutritional value: {nutritional_value}kcal")
-        print(f"##[Make the {name} grow for 10 days]")
-        self.grow_vegetable()
-        height = self.get_height()
-        age = self.get_age()
-        nutritional_value = self.get_nutritional_value()
-        print(f"{name}: {height}cm, {age} days old")
-        print(f"Harvest season: {harvest_season}")
-        print(f"Nutritional value: {nutritional_value}kcal\n")
 
+def show_statistics_plant(self) -> None:
+    self.get_statistics().display()
 
 if __name__ == "__main__":
     def ft_garden_analytics() -> None:
@@ -265,12 +256,12 @@ if __name__ == "__main__":
         plant.set_age(1)
         plant.set_color("red")
         plant.show()
-        plant.show_statistics_plant()
+        show_statistics_plant(plant)
         plant.grow()
         plant.get_old()
         plant.set_bloom(True)
         plant.show()
-        plant.show_statistics_plant()
+        show_statistics_plant(plant)
 
         print("========= Tree")
         plant2 = Tree("Pine", 15, 10, 10, True)
@@ -278,10 +269,10 @@ if __name__ == "__main__":
         plant2.set_age(15)
         plant2.set_trunk_diameter(45)
         plant2.show()
-        plant2.show_statistics_tree()
+        show_statistics_plant(plant2)
         plant2.show()
         plant2.produce_shade()
-        plant2.show_statistics_tree()
+        show_statistics_plant(plant2)
 
         print("========= Vegetable")
         plant3 = Vegetable("Tomatoe", 15, 10, "april", 0)
@@ -290,9 +281,14 @@ if __name__ == "__main__":
         plant3.set_harvest_season("october")
         plant3.set_nutritional_value(0)
         plant3.show()
+        show_statistics_plant(plant3)
+        plant3.grow_vegetable()
+        plant3.show()
+        show_statistics_plant(plant3)
 
         print("========= Anonymous plant")
         plant_anon = Plant.create_anonymous()
         plant_anon.show()
+        show_statistics_plant(plant_anon)
 
     ft_garden_analytics()
