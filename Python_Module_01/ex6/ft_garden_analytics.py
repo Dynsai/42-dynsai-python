@@ -101,6 +101,7 @@ class Flower(Plant):
         super().__init__(name, height, age)
         self._color: str = "Blanco"
         self._bloom: bool = False
+        self._seeds: Flower._seeds = Flower.Seed()
 
         self.set_color(color)
         self.set_bloom(bloom)
@@ -121,14 +122,30 @@ class Flower(Plant):
         color = self.get_color()
         bloom = self.get_bloom()
         name: str = self.get_name()
+        seeds_number: int = self._seeds.get_seeds()
         print(f"Color: {color}")
         if not bloom:
             print("Not blooming yet")
-            self.set_bloom(True)
             print(f"##[Asking the {name} to bloom]")
-            self.show()
+            self.set_bloom(True)
         if bloom:
             print("Blooming!")
+            self._seeds.set_seeds(True)
+            seeds_number = self._seeds.get_seeds()
+        print(f"Seeds: {seeds_number}")
+            
+    class Seed:
+        def __init__(self) -> None:
+            self._seeds: int = 0
+            
+        def set_seeds(self, bloom: bool) -> None:
+            if bloom:
+                self._seeds = 42
+        
+        def get_seeds(self) -> int:
+            return self._seeds
+        
+        
 
 
 class Tree(Plant):
@@ -247,7 +264,11 @@ if __name__ == "__main__":
         plant.set_height(20)
         plant.set_age(1)
         plant.set_color("red")
-        plant.set_bloom(False)
+        plant.show()
+        plant.show_statistics_plant()
+        plant.grow()
+        plant.get_old()
+        plant.set_bloom(True)
         plant.show()
         plant.show_statistics_plant()
 
