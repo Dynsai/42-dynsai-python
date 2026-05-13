@@ -3,13 +3,13 @@ def input_temperature(temp_str: str) -> int:
     if temp_int < 0:
         print(f"Temperature is {temp_int}")
         raise ValueError(
-            "Temperature is not in range! " 
+            "Temperature is not in range! "
             "Temperature is too cold!"
         )
     elif temp_int > 40:
         print(f"Temperature is {temp_int}")
         raise ValueError(
-            "Temperature is not in range! " 
+            "Temperature is not in range! "
             "Temperature is too hot!"
         )
     print(f"Temperature is {temp_int}. It's in range!")
@@ -17,11 +17,12 @@ def input_temperature(temp_str: str) -> int:
 
 
 def test_temperature() -> None:
-    for value in ["25", "abc", "100", "-50"]:
-        print(f"=== Testing '{value}'")
+    tests: list[str] = ["25", "abc", "100", "-50"]
+    for test in tests:
+        print(f"=== Testing '{test}'")
 
         try:
-            input_temperature(value)
+            input_temperature(test)
         except ValueError as error:
             print(f"Error: {error}")
         print("~ Test completed!")
