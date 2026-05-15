@@ -34,3 +34,4 @@ def test_error_types() -> None:
 if __name__ == "__main__":
     print("=== Garden Error Types Demo ===")
     test_error_types()
+    print("=== End of Garden Error Types Demo ===")

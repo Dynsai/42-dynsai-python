@@ -35,3 +35,4 @@ def test_watering_system() -> None:
 if __name__ == "__main__":
     print("=== Garden Watering System ===")
     test_watering_system()
+    print("=== End of Garden Watering System ===")

@@ -14,7 +14,6 @@ class WaterError(GardenError):
 
 
 def custom_errors() -> None:
-    print("=== Custom Garden Errors Demo ===")
     try:
         print("Testing PlantError")
         raise PlantError("Onion plant is dead")
@@ -37,4 +36,6 @@ def custom_errors() -> None:
 
 
 if __name__ == "__main__":
+    print("=== Custom Garden Errors Demo ===")
     custom_errors()
+    print("=== End of Custom Garden Errors Demo ===")

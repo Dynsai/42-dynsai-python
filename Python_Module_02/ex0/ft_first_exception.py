@@ -1,15 +1,15 @@
 def input_temperature(temp_str: str) -> int:
     temp_int: int = int(temp_str)
-    print(f"Temperature is {temp_int}")
     return temp_int
 
 
 def test_temperature() -> None:
+    temp: int
     for value in ["25", "abc"]:
         print(f"=== Testing '{value}'")
-
         try:
-            input_temperature(value)
+            temp = input_temperature(value)
+            print(f"Temperature is {temp}")
         except ValueError as error:
             print(f"Error: {error}")
         print("Test completed!")
